@@ -4,9 +4,9 @@ require_relative 'player'
 class Game
   attr_accessor :board, :player
 
-  def initialize
-    @board = Board.new
-    @player = Player.new
+  def initialize(board = Board.new, player = Player.new)
+    @board = board
+    @player = player
     p @board.secret_word
   end
 
