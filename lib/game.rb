@@ -13,7 +13,6 @@ class Game
   def play
     @player.take_guess
     @board.handle_player_guess(@player.guessed_letters[-1])
-    p @board.chances
   end
 
   def game_over?
@@ -21,15 +20,15 @@ class Game
   end
 
   def show_secret_word
-    puts "The secret word was: #{@board.secret_word}"
+    puts "The secret word was: #{@board.secret_word.join('')}"
   end
 
   def start
     play until game_over?
     if @board.chances.zero?
-      puts "You Lose!\n"
+      puts "\nYou Lose!\n"
     else
-      puts "Congratulations! You Won!\n"
+      puts "\nCongratulations! You Won!\n"
     end
     show_secret_word
   end

@@ -37,16 +37,31 @@ class Board
     @secret_word.each_with_index do |letter, idx|
       @correctly_guessed_letters[idx] = letter_guessed if letter == letter_guessed
     end
+    update_board
+    puts "\nYou got a hit! #{letter_guessed} appears #{count_letter_appearances letter_guessed} time(s) in the secret word!"
+  end
+
+  def update_board
+    system('clear')
+    show_start_screen
+    puts "Can you guess it?\n#{@correctly_guessed_letters.join(' ')}"
+    puts "\nWrong guesses:\n#{@incorrectly_guessed_letters.join(' ')}"
+    puts "\nYou have #{@chances} chances left!"
+  end
+
+  def show_start_screen
+    puts "Hangman in the console\nby jlcarg\n\n"
   end
 
   def handle_player_guess(letter)
+    update_board
     if letter_appears? letter
-      puts "You got a hit! #{letter} appears #{count_letter_appearances letter} time(s) in the secret word!"
       update_correctly_guessed! letter
     else
-      puts "Unfortunately, #{letter} doesn't appear in the secret word!"
       @incorrectly_guessed_letters << letter
       @chances -= 1
+      update_board
+      puts "Unfortunately, #{letter} doesn't appear in the secret word!"
     end
   end
 end
