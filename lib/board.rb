@@ -1,11 +1,14 @@
 class Board
   MIN_LETTERS = 5
   MAX_LETTERS = 12
-  attr_accessor :secret_word, :guessed_letters
+  CHANCES = 7
+  attr_accessor :secret_word, :guessed_letters, :chances, :correctly_guessed_letters, :incorrectly_guessed_letters
 
   def initialize
     @secret_word = select_secret_word
-    @guessed_letters = []
+    @chances = CHANCES
+    @correctly_guessed_letters = Array.new(@secret_word.length, '_')
+    @incorrectly_guessed_letters = []
   end
 
   def filter_words
@@ -15,7 +18,7 @@ class Board
   end
 
   def select_secret_word
-    @secret_word = filter_words.sample
+    @secret_word = filter_words.sample.chomp.upcase.split('')
   end
 
   def already_guessed?(letter)
@@ -30,16 +33,20 @@ class Board
     @secret_word.count letter
   end
 
+  def update_correctly_guessed!(letter_guessed)
+    @secret_word.each_with_index do |letter, idx|
+      @correctly_guessed_letters[idx] = letter_guessed if letter == letter_guessed
+    end
+  end
+
   def handle_player_guess(letter)
-    if already_guessed? letter
-      puts "You have already guessed #{letter}, try another letter!"
+    if letter_appears? letter
+      puts "You got a hit! #{letter} appears #{count_letter_appearances letter} time(s) in the secret word!"
+      update_correctly_guessed! letter
     else
-      @guessed_letters << letter
-      if letter_appears? letter
-        puts "You got a hit! #{letter} appears #{count_letter_appearances letter} time(s) in the secret word!"
-      else
-        puts "Unfortunately, #{letter} doesn't appear in the secret word!"
-      end
+      puts "Unfortunately, #{letter} doesn't appear in the secret word!"
+      @incorrectly_guessed_letters << letter
+      @chances -= 1
     end
   end
 end
