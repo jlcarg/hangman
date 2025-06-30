@@ -41,16 +41,16 @@ class Board
     puts "\nYou got a hit! #{letter_guessed} appears #{count_letter_appearances letter_guessed} time(s) in the secret word!"
   end
 
+  def show_start_screen
+    puts "Hangman in the console\nby jlcarg\n\n"
+  end
+
   def update_board
     system('clear')
     show_start_screen
     puts "Can you guess it?\n#{@correctly_guessed_letters.join(' ')}"
     puts "\nWrong guesses:\n#{@incorrectly_guessed_letters.join(' ')}"
     puts "\nYou have #{@chances} chances left!"
-  end
-
-  def show_start_screen
-    puts "Hangman in the console\nby jlcarg\n\n"
   end
 
   def handle_player_guess(letter)

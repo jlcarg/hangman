@@ -7,7 +7,6 @@ class SaveLoadMenu
   end
 
   def self.write_save_file(yaml, player_name, date, save_number)
-    puts Dir.pwd
     File.open("save_files/#{save_number}_#{player_name}_#{date}.txt", 'w') do |file|
       file.write(yaml)
     end
@@ -23,14 +22,13 @@ class SaveLoadMenu
     write_save_file(yaml, player_name, date, save_number)
   end
 
-  def self.deserialize(yaml)
-    YAML.parse(yaml)
+  def self.show_save_files_arr
+    Dir.children('save_files').sort
   end
 
   def self.load_game(save_number)
-    File.open('save_files.txt', 'r') do |file|
-      array_of_saves = file.readlines
-      array_of_saves[save_number]
-    end
+    # Subtract 1 so it matches array starting from 0
+    path = show_save_files_arr[save_number - 1]
+    YAML.load File.open("save_files/#{path}", 'r'), permitted_classes: [Game, Board, Player]
   end
 end

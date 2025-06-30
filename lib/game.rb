@@ -11,6 +11,7 @@ class Game
   end
 
   def play
+    @board.update_board
     @player.take_guess
     @board.handle_player_guess(@player.guessed_letters[-1])
   end
@@ -35,7 +36,7 @@ class Game
   def start
     p @board.secret_word
     until game_over?
-      puts 'Type SAVE for saving your game and exiting'
+      puts 'Type SAVE for saving your game and exiting or Press Enter to continue'
       answer = gets.chomp
       return SaveLoadMenu.save_game(self) if answer == 'SAVE'
 
