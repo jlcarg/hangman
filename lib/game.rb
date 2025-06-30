@@ -34,7 +34,6 @@ class Game
   end
 
   def start
-    p @board.secret_word
     until game_over?
       puts 'Type SAVE for saving your game and exiting or Press Enter to continue'
       answer = gets.chomp
