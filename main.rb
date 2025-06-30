@@ -13,7 +13,7 @@ if answer == 'Y'
   SaveLoadMenu.show_save_files_arr.each do |filename|
     puts filename
   end
-  puts "Type the save file number to select it\n"
+  puts "\nType the save file number to select it\n"
   save_file_number = gets.chomp.to_i
   save_file_object = SaveLoadMenu.load_game save_file_number
   game = Game.new(save_file_object.board, save_file_object.player)
