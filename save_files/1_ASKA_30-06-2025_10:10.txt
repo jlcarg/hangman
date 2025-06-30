@@ -1,0 +1,23 @@
+--- !ruby/object:Game
+board: !ruby/object:Board
+  secret_word:
+  - R
+  - A
+  - I
+  - "N"
+  - B
+  - O
+  - W
+  chances: 7
+  correctly_guessed_letters:
+  - _
+  - _
+  - _
+  - _
+  - _
+  - _
+  - _
+  incorrectly_guessed_letters: []
+player: !ruby/object:Player
+  player_name: ASKA
+  guessed_letters: []

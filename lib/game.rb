@@ -1,5 +1,6 @@
 require_relative 'board'
 require_relative 'player'
+require_relative 'save_load_menu'
 
 class Game
   attr_accessor :board, :player
@@ -7,7 +8,6 @@ class Game
   def initialize(board = Board.new, player = Player.new)
     @board = board
     @player = player
-    p @board.secret_word
   end
 
   def play
@@ -23,8 +23,7 @@ class Game
     puts "The secret word was: #{@board.secret_word.join('')}"
   end
 
-  def start
-    play until game_over?
+  def declare_result
     if @board.chances.zero?
       puts "\nYou Lose!\n"
     else
@@ -32,7 +31,16 @@ class Game
     end
     show_secret_word
   end
-end
 
-game = Game.new
-game.start
+  def start
+    p @board.secret_word
+    until game_over?
+      puts 'Type SAVE for saving your game and exiting'
+      answer = gets.chomp
+      return SaveLoadMenu.save_game(self) if answer == 'SAVE'
+
+      play
+    end
+    declare_result
+  end
+end
