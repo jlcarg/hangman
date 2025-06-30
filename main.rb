@@ -2,7 +2,8 @@ require_relative 'lib/game'
 require_relative 'lib/save_load_menu'
 
 puts "Hello!\n This is Hangman in the console\nby jlcarg\n\n\n"
-if Dir.children('save_files') != 0
+
+unless Dir.children('save_files').empty?
   puts 'Would you like to load a previous game? Type Y if yes'
   answer = gets.chomp
 end

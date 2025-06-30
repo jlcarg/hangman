@@ -13,7 +13,7 @@ class Board
 
   def filter_words
     File.open('google-10000-english-no-swears.txt', 'r') do |file|
-      file.select { |word| word.length.between? MIN_LETTERS, MAX_LETTERS }
+      file.select { |word| word.chomp.length.between? MIN_LETTERS, MAX_LETTERS }
     end
   end
 
