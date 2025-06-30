@@ -65,10 +65,3 @@ class Board
     end
   end
 end
-
-# board = Board.new
-# puts board.filter_words.length
-# board.select_secret_word
-# puts board.secret_word
-# puts board.guessed_letters
-# board.handle_player_guess('a')
